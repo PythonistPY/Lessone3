@@ -27,12 +27,17 @@ target_y = random.randint(0, SCREEN_HEIGHT - target_height)
 color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
 # Имена и очки игроков
-player_names = ["Игрок 1", "Игрок 2"]
-player_scores = [0, 0]
+player_names = ["Игрок "]
+player_scores = [0]
 current_player = 0
 
 # Шрифт для отображения счета и имен игроков
 font = pygame.font.SysFont(None, 36)
+
+# Переменные таймера
+total_time = 30  # Продолжительность таймера в секундах
+start_time = pygame.time.get_ticks()  # Время начала игры
+timer_font = pygame.font.SysFont(None, 48)
 
 # Основной игровой цикл
 running = True
@@ -53,8 +58,10 @@ while running:
                 color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
                 # Увеличение счета текущего игрока
                 player_scores[current_player] += 1
-                # Переключение на следующего игрока
-                current_player = (current_player + 1) % len(player_names)
+
+    # Вычисление оставшегося времени
+    elapsed_time = (pygame.time.get_ticks() - start_time) / 1000
+    remaining_time = max(total_time - elapsed_time, 0)
 
     # Заполнение экрана новым цветом
     screen.fill(color)
@@ -69,12 +76,19 @@ while running:
         screen.blit(score_text, (10, y_offset))
         y_offset += 40  # Смещение для следующего игрока
 
+    # Отображение таймера
+    timer_text = timer_font.render(f"Время: {int(remaining_time)}", True, (255, 255, 255))
+    screen.blit(timer_text, (SCREEN_WIDTH - 150, 10))
+
     # Обновление экрана
     pygame.display.update()
+
+    # Завершение работы при истечении времени
+    if remaining_time <= 0:
+        running = False
 
     # Ограничение кадров в секунду
     clock.tick(30)
 
 # Завершение работы Pygame
 pygame.quit()
-
