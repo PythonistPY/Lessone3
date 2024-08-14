@@ -26,18 +26,18 @@ target_y = random.randint(0, SCREEN_HEIGHT - target_height)
 # Начальный цвет экрана
 color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
-# Имена и очки игроков
+# Имена и очки игрока
 player_names = ["Игрок "]
 player_scores = [0]
 current_player = 0
 
 # Шрифт для отображения счета и имен игроков
-font = pygame.font.SysFont(None, 36)
+font = pygame.font.SysFont(None, 34)
 
 # Переменные таймера
 total_time = 30  # Продолжительность таймера в секундах
 start_time = pygame.time.get_ticks()  # Время начала игры
-timer_font = pygame.font.SysFont(None, 48)
+timer_font = pygame.font.SysFont(None, 40)
 
 # Основной игровой цикл
 running = True
